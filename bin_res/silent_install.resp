@@ -1,0 +1,33 @@
+#=======================================================================
+# Silent Install Response File For IBM MQ Explorer
+# ----------------------------------------------------------
+#
+# This is the silent install response file for IBM MQ Explorer on Windows
+#
+# ***IMPORTANT NOTE***
+# --------------------
+# You must set LICENSE_ACCEPTED to TRUE before installing to indicate
+# that you agree with the license terms.  Failure to do this will
+# prevent the product from installing.
+#
+#=======================================================================
+
+#-----------------------------------------------------------------------
+# Indicate whether the license agreement has been accepted
+# (EDIT THIS AS DESCRIBED ABOVE)
+#-----------------------------------------------------------------------
+LICENSE_ACCEPTED=TRUE
+
+#-----------------------------------------------------------------------
+# Set the install mode to use (silent install)
+#-----------------------------------------------------------------------
+INSTALLER_UI=silent
+
+#-----------------------------------------------------------------------
+# Choose Install Folder
+# ---------------------
+# Note: The backslash path separator '\' must be indicated by a double
+#       backslash '\\'
+#-----------------------------------------------------------------------
+USER_INSTALL_DIR=C:\\Program Files\\IBM\\MQ Explorer
+

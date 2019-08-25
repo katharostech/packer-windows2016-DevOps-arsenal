@@ -1,0 +1,12 @@
+.DS_Store
+crash.log
+ISOs/
+output*
+*cache*
+*.box
+*secrets*
+*manifest*
+builds/
+*.log
+keys
+install

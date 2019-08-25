@@ -1,0 +1,56 @@
+{
+	"builders": [{
+            "type": "vmware-vmx",
+            "vm_name": "{{ user `vm_name` }}",
+            "display_name": "{{ user `vm_name` }}",
+            "source_path": "{{ user `vmx_path` }}",
+            "output_directory": "../builds/packer-{{user `template`}}-DevOps-arsenal-vmware",
+            "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+            "communicator": "winrm",
+            "winrm_username": "vagrant",
+            "winrm_password": "vagrant",
+            "winrm_timeout": "1h",
+            "vmx_data": {
+                "vhv.enable": "TRUE",
+                "memsize": "8192",
+				"numvcpus": "4"
+            }
+		}
+	],
+	"provisioners": [{
+            "type": "file",
+            "source": "bin_res",
+            "destination": "C:/Users/vagrant/Downloads"
+        },
+        {
+            "type": "powershell",
+            "script": "scripts/SetupConfigMgmt.ps1",
+            "elevated_user": "vagrant",
+            "elevated_password": "vagrant"
+        },
+		{
+			"type": "windows-restart"
+		},
+		{
+            "type": "powershell",
+            "environment_vars": "VMWARE_WORKSTATION_SERIAL={{ user `vmware_license` }}",
+			"script": "scripts/InstallTools.ps1",
+			"elevated_user": "vagrant",
+			"elevated_password": "vagrant"
+		}
+	],
+	"post-processors": [
+		[{
+			"type": "vagrant",
+			"keep_input_artifact": true,
+			"output": "{{ user `template` }}-DevOps-arsenal-{{.Provider}}.box",
+            "vagrantfile_template": "vagrantfile-windows.template"
+		}]
+	],
+	"variables": {
+        "vm_name": "packer-win2016-DevOps-arsenal",
+        "vmx_path": "{{env `WIN2016_DEVOPS_TOOLS_VMX_PATH`}}",
+        "template": "windows-2016-standard",
+        "vmware_license": ""
+	}
+}
